@@ -3,68 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bradley Roush | AI Operational Systems</title>
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
+    <title>HabitGuard | AI Maintenance Dispatch for Property Managers</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #0f172a; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; }
+        a { color: #14b8a6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Nav */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 2rem; max-width: 900px; margin: 0 auto; }
+        .logo { font-size: 1.3rem; font-weight: 800; color: #14b8a6; letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+        .nav-links a { color: #94a3b8; font-size: 0.9rem; }
+        .nav-links a:hover { color: #e2e8f0; text-decoration: none; }
+        .btn { background: #14b8a6; color: #0f172a !important; padding: 0.5rem 1.25rem; border-radius: 6px; font-weight: 700; font-size: 0.9rem; }
+        .btn:hover { background: #0d9488; text-decoration: none !important; }
+
+        /* Hero */
+        .hero { text-align: center; padding: 5rem 2rem 4rem; max-width: 700px; margin: 0 auto; }
+        .hero h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.15; margin-bottom: 1.25rem; }
+        .hero h1 span { color: #14b8a6; }
+        .hero p { font-size: 1.1rem; color: #94a3b8; margin-bottom: 2rem; }
+        .hero-cta { display: inline-block; background: #14b8a6; color: #0f172a; padding: 0.85rem 2rem; border-radius: 8px; font-weight: 700; font-size: 1rem; }
+        .hero-cta:hover { background: #0d9488; text-decoration: none; }
+
+        /* Section wrapper */
+        .section { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+        .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .section-sub { color: #94a3b8; margin-bottom: 2rem; font-size: 0.95rem; }
+
+        /* Feature cards */
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 1.5rem; }
+        .card h3 { font-size: 1rem; font-weight: 700; color: #14b8a6; margin-bottom: 0.5rem; }
+        .card p { font-size: 0.9rem; color: #94a3b8; }
+
+        /* How it works */
+        .steps { display: flex; flex-direction: column; gap: 1.25rem; }
+        .step { display: flex; gap: 1.25rem; align-items: flex-start; }
+        .step-num { background: #14b8a6; color: #0f172a; width: 2rem; height: 2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; flex-shrink: 0; margin-top: 0.1rem; }
+        .step-body h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .step-body p { font-size: 0.9rem; color: #94a3b8; }
+
+        /* Divider */
+        .divider { border: none; border-top: 1px solid #1e293b; }
+
+        /* Form */
+        .form-wrap { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 2rem; max-width: 600px; margin: 0 auto; }
+        .form-wrap h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .form-wrap .form-sub { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .form-field { margin-bottom: 1rem; }
+        label { display: block; font-size: 0.82rem; color: #94a3b8; margin-bottom: 0.3rem; font-weight: 500; }
+        input[type=text], input[type=email], input[type=tel], select {
+            width: 100%; padding: 0.6rem 0.8rem; background: #0f172a; border: 1px solid #334155;
+            border-radius: 6px; color: #e2e8f0; font-size: 0.95rem;
+        }
+        input:focus, select:focus { outline: none; border-color: #14b8a6; }
+        .consent { display: flex; gap: 0.75rem; align-items: flex-start; margin: 1.25rem 0; }
+        .consent input[type=checkbox] { width: auto; flex-shrink: 0; margin-top: 0.25rem; accent-color: #14b8a6; }
+        .consent span { font-size: 0.85rem; color: #94a3b8; }
+        button[type=submit] {
+            width: 100%; background: #14b8a6; color: #0f172a; border: none;
+            padding: 0.8rem; border-radius: 6px; font-size: 1rem; font-weight: 700; cursor: pointer;
+        }
+        button[type=submit]:hover { background: #0d9488; }
+        .form-note { font-size: 0.78rem; color: #475569; margin-top: 1rem; text-align: center; }
+        .form-note a { color: #475569; text-decoration: underline; }
+
+        /* Footer */
+        footer { border-top: 1px solid #1e293b; margin-top: 4rem; padding: 2rem; text-align: center; font-size: 0.82rem; color: #475569; }
+        footer a { color: #475569; }
+        footer a:hover { color: #94a3b8; text-decoration: none; }
+        footer .footer-links { margin-top: 0.5rem; }
+        footer .footer-links a { margin: 0 0.5rem; }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.9rem; }
+            .form-row { grid-template-columns: 1fr; }
+            nav { padding: 1rem 1.25rem; }
+            .nav-links { gap: 1rem; }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="/"><b>Bradley Roush Systems</b></a>
-            <ul>
-                <li><a href="#solution">Solution</a></li>
-                <li><a href="privacy.html">Privacy</a></li>
-            </ul>
-        </nav>
-        <h1>Autonomous Operations for Property Management</h1>
-        <p>Eliminate the chaos of 24/7 maintenance coordination with high-reliability AI Agents.</p>
-    </header>
 
-    <main>
-        <hr>
-        <section id="solution">
-            <header>
-                <h2>The Maintenance Triage Engine</h2>
-                <p>Most property management overhead is wasted on manual ticket sorting and unnecessary vendor trip charges. We build the "digital dispatcher" that solves this.</p>
-            </header>
-            <aside>
+    <nav>
+        <a href="/" class="logo">HabitGuard</a>
+        <ul class="nav-links">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#demo" class="btn">Request Demo</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <h1>24/7 AI Maintenance Dispatch for <span>Property Managers</span></h1>
+        <p>Protect your liability under California habitability law while eliminating manual triage. HabitGuard handles tenant SMS requests around the clock — classifying urgency, deflecting routine issues, and dispatching vendors automatically.</p>
+        <a href="#demo" class="hero-cta">Request a Demo &rarr;</a>
+    </section>
+
+    <hr class="divider">
+
+    <div class="section" id="solution">
+        <p class="section-title">Built for the Reality of Property Management</p>
+        <p class="section-sub">Most overhead is lost to manual ticket sorting and unnecessary vendor trip charges. HabitGuard is the always-on dispatcher that handles it.</p>
+        <div class="cards">
+            <div class="card">
                 <h3>24/7 SMS Triage</h3>
-                <p>Our agents instantly categorize tenant requests by urgency (P0-P3) based on California habitability standards.</p>
-            </aside>
-            <aside>
+                <p>Instantly classifies tenant requests by urgency (P0–P3) based on California habitability standards — no coordinator required at 2am.</p>
+            </div>
+            <div class="card">
                 <h3>Automated Deflection</h3>
-                <p>AI guides tenants through basic troubleshooting (e.g., GFI resets, disposal jams) before a human ever sees a ticket.</p>
-            </aside>
-            <aside>
+                <p>Guides tenants through Tier-1 troubleshooting (GFI resets, disposal jams, etc.) before a human ever sees a ticket.</p>
+            </div>
+            <div class="card">
                 <h3>Direct Dispatch</h3>
-                <p>Confirmed emergencies trigger immediate vendor notifications, protecting property value while you sleep.</p>
-            </aside>
-        </section>
+                <p>Confirmed emergencies trigger immediate vendor notifications with a full timestamped audit trail for compliance and liability protection.</p>
+            </div>
+        </div>
+    </div>
 
-        <section>
-            <form action="#">
-                <header>
-                    <h2>Request a System Demo</h2>
-                    <p>Experience the maintenance agent workflow on your own device.</p>
-                </header>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" size="20" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" size="20" required>
-                <label>
-                    <input type="checkbox" required> I agree to receive SMS updates for the purpose of this demo.
-                </label>
-                <button type="submit">Submit Request</button>
-                <p><small>Message and data rates may apply. Reply STOP to opt-out. See our <a href="privacy.html">Privacy Policy</a>.</small></p>
+    <hr class="divider">
+
+    <div class="section" id="how-it-works">
+        <p class="section-title">How It Works</p>
+        <p class="section-sub">Three steps. No app downloads. No portals. Just SMS — the channel your tenants already use.</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                    <h3>Tenant Texts the Property Number</h3>
+                    <p>Your tenants send maintenance requests via SMS to a dedicated HabitGuard number. No app, no login required.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                    <h3>AI Classifies and Responds Within Seconds</h3>
+                    <p>The AI agent determines urgency, provides Tier-1 troubleshooting for routine issues, and asks clarifying questions when needed. Every interaction is logged.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                    <h3>You Get Notified. Vendors Get Dispatched.</h3>
+                    <p>Emergencies trigger immediate alerts to you and your vendors. Routine issues are resolved or queued — with a full compliance record ready if you ever need it.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section" id="demo">
+        <div class="form-wrap">
+            <h2>Request a System Demo</h2>
+            <p class="form-sub">Experience the full maintenance agent workflow on your own device. We'll walk you through a live triage scenario.</p>
+            <form id="demo-form">
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555">
+                    </div>
+                    <div class="form-field">
+                        <label for="units">Units Under Management</label>
+                        <select id="units" name="units">
+                            <option value="">Select range</option>
+                            <option value="under-100">Under 100</option>
+                            <option value="100-500">100 – 500</option>
+                            <option value="500-2000">500 – 2,000</option>
+                            <option value="2000+">2,000+</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="consent">
+                    <input type="checkbox" id="sms-consent" name="sms_consent" required>
+                    <span>I agree to receive SMS messages from HabitGuard for demo coordination and service updates. Message and data rates may apply. Reply STOP to opt-out at any time.</span>
+                </div>
+                <button type="submit">Submit Demo Request</button>
+                <p class="form-note">
+                    We respect your privacy. No spam, no marketing lists.
+                    See our <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms of Service</a>.
+                </p>
             </form>
-        </section>
-    </main>
+        </div>
+    </div>
+
+    <div id="form-success" style="display:none; text-align:center; padding:3rem 2rem;">
+        <p style="color:#14b8a6; font-size:1.2rem; font-weight:700;">Request received!</p>
+        <p style="color:#94a3b8; margin-top:0.5rem;">We'll be in touch within 1 business day.</p>
+    </div>
 
     <footer>
-        <hr>
-        <p>
-            © 2026 Bradley Roush Consulting | Southern California AI Operations<br>
-            <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
+        <p>&copy; 2026 HabitGuard &mdash; habitguard.ai &mdash; Southern California AI Operations</p>
+        <p class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="mailto:roush.brad@gmail.com">Contact</a>
         </p>
     </footer>
+
+    <script>
+        // Replace YOUR_APPS_SCRIPT_URL with the web app URL from your Google Apps Script deployment
+        var SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL';
+
+        document.getElementById('demo-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var form = e.target;
+            var btn = form.querySelector('button[type=submit]');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            fetch(SCRIPT_URL, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
+                .then(function() {
+                    document.querySelector('.form-wrap').style.display = 'none';
+                    document.getElementById('form-success').style.display = 'block';
+                })
+                .catch(function() {
+                    btn.disabled = false;
+                    btn.textContent = 'Submit Demo Request';
+                    alert('Something went wrong. Please email us at roush.brad@gmail.com');
+                });
+        });
+    </script>
 </body>
 </html>
